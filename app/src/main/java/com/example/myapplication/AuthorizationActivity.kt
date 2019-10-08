@@ -1,20 +1,17 @@
 package com.example.myapplication
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_authorization.*
-import kotlinx.android.synthetic.main.activity_authorization.view.*
 
 class AuthorizationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authorization)
-
-        et_sign_in_pass
 
         et_sign_in_pass.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -43,6 +40,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
         }
     }
+
     private fun setPasswordError() {
         ti_sign_in_pass.error = getString(R.string.validate_password)
     }
