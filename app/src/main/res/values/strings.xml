@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="login">LogIn</string>
+    <string name="change_password">Change Password</string>
+    <string name="change">Change</string>
+    <string name="validate_password">Не лезь бл**</string>
 </resources>
