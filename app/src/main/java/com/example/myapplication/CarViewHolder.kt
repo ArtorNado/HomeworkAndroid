@@ -1,15 +1,15 @@
 package com.example.myapplication
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.template.*
 import kotlinx.android.synthetic.main.template.view.*
 
 class CarViewHolder(
-    override val containerView: View
+    override val containerView: View,
+    private val clickLambda: (String, Car) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     val tv_car = containerView.tv_car
@@ -18,6 +18,19 @@ class CarViewHolder(
 
     fun bind(car: Car) {
         tv_description.text = car.description
-        tv_car.text=car.car
+        tv_car.text = car.car
+        iv_image.setImageResource(car.img)
+        itemView.setOnClickListener {
+            clickLambda(car.car, car)
+        }
+    }
+
+    companion object {
+
+        fun create(parent: ViewGroup, clickLambda: (String, Car) -> Unit) =
+            CarViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.template, parent, false),
+                clickLambda
+            )
     }
 }
