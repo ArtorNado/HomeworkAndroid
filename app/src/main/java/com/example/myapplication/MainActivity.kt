@@ -11,8 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val data = CarRepository()
-        adapter = CarAdapter(data.getDataSource()) { Car ->
+        adapter = CarAdapter(CarRepository.getDataSource()) { Car ->
             navigateToDesc(Car)
         }
         rv_car.adapter = adapter;

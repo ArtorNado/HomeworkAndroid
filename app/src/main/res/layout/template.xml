@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="153dp"
     android:background="?android:attr/selectableItemBackground"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp">
 
     <TextView
         android:id="@+id/tv_car"
@@ -33,17 +33,18 @@
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
         android:scaleType="centerCrop"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:background="@android:color/holo_red_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

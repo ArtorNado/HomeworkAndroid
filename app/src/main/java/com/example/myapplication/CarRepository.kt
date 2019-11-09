@@ -1,6 +1,6 @@
 package com.example.myapplication
 
-class CarRepository {
+object CarRepository {
 
     fun getDataSource(): ArrayList<Car> = arrayListOf(
         Car(R.drawable.e63s, "Mercedes e63s amg", "612 horse power"),
