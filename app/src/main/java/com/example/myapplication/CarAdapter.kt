@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CarAdapter(
     private var car: List<Car>,
-    private val clickLambda: (String, Car) -> Unit
+    private val clickLambda: (Car) -> Unit
 ) : RecyclerView.Adapter<CarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder =

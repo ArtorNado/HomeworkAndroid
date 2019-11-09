@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.template.view.*
 
 class CarViewHolder(
     override val containerView: View,
-    private val clickLambda: (String, Car) -> Unit
+    private val clickLambda: (Car) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     val tv_car = containerView.tv_car
@@ -21,13 +21,13 @@ class CarViewHolder(
         tv_car.text = car.car
         iv_image.setImageResource(car.img)
         itemView.setOnClickListener {
-            clickLambda(car.car, car)
+            clickLambda(car)
         }
     }
 
     companion object {
 
-        fun create(parent: ViewGroup, clickLambda: (String, Car) -> Unit) =
+        fun create(parent: ViewGroup, clickLambda: (Car) -> Unit) =
             CarViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.template, parent, false),
                 clickLambda
