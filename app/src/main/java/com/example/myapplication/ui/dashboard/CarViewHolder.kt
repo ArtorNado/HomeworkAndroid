@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.dashboard
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,11 @@ class CarViewHolder(
         btn_delete.setOnClickListener {
             clickLambda(car)
         }
+    }
+
+    fun update(bundle: Bundle) {
+        tv_car.text = bundle.getString("car") ?: "NULL"
+        tv_description.text = bundle.getString("description") ?: "NULL"
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.dashboard
 
+import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 
@@ -31,7 +32,7 @@ class CarAdapter(
         this.car.addAll(newList)
     }
 
-    /*override fun onBindViewHolder(
+    override fun onBindViewHolder(
         holder: CarViewHolder,
         position: Int,
         payloads: MutableList<Any>
@@ -40,8 +41,10 @@ class CarAdapter(
             super.onBindViewHolder(holder, position, payloads)
         else {
             val bundle = payloads[0] as? Bundle
-            holder.updateFromBundle(bundle)
+            if (bundle != null) {
+                holder.update(bundle)
+            }
         }
 
-    }*/
+    }
 }

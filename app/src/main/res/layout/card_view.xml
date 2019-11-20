@@ -9,23 +9,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="360dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="360dp"
             android:padding="5dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_photo"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="0dp"
-                android:scaleType="centerCrop"
-                card_view:border_color="#FF000000"
-                card_view:border_width="2dp" />
 
             <TextView
                 android:id="@+id/tv_author"
@@ -66,18 +55,27 @@
                 android:id="@+id/indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/viewPager"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:gravity="bottom"
                 android:padding="0dp"
                 app:centered="true"
                 app:fillColor="#000000"
-                app:layout_constraintBottom_toTopOf="@id/tv_description"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/viewPager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager"
                 app:pageColor="#a0a0a0"
                 app:snap="false" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="0dp"
+                android:scaleType="centerCrop"
+                card_view:border_color="#FF000000"
+                card_view:border_width="2dp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

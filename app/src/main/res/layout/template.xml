@@ -18,6 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_image" />
 
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="4dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <TextView
         android:id="@+id/tv_car"
@@ -44,16 +55,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_car"
         tools:text="Description" />
 
-    <ImageButton
-        android:id="@+id/btn_delete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="4dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/iv_image"
