@@ -15,18 +15,22 @@ class MusicViewHolder(
     val context: Context?
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    val tv_title = containerView.tv_title
-    val tv_description = containerView.tv_description
-    val viewPager = containerView.viewPager
+    private val tv_author = containerView.tv_author
+    private val tv_description = containerView.tv_description
+    private val viewPager = containerView.viewPager
+    private val iv_photo = containerView.iv_photo
+    private val indicator = containerView.indicator
 
     fun bind(music: Music) {
-        val imageList: List<Int> = arrayListOf(
-            R.drawable.uvozh,
-            R.drawable.uvozh
-        )
+
         tv_description.text = music.description
-        tv_title.text = music.title
+        tv_author.text = music.author
+        iv_photo.setImageResource(music.avatar)
+        val map = MusicRepository.getImageList()
+        val imageList: List<Int> = map.getValue(music.author)
         viewPager.adapter = ViewPagerAdapter(context, imageList)
+        indicator.setViewPager(viewPager)
+
     }
 
     companion object {

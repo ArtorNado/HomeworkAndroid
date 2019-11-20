@@ -25,7 +25,7 @@ class CarAdapter(
     }
 
     fun updateList(newList: ArrayList<Car>) {
-        androidx.recyclerview.widget.DiffUtil.calculateDiff(DiffUtil(this.car, newList), true)
+        androidx.recyclerview.widget.DiffUtil.calculateDiff(DiffUtil(this.car, newList), false)
             .dispatchUpdatesTo(this)
         this.car.clear()
         this.car.addAll(newList)

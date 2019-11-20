@@ -13,13 +13,15 @@ class CarViewHolder(
     private val clickLambda: (Car) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    val tv_car = containerView.tv_car
-    val tv_description = containerView.tv_description
-    val btn_delete = containerView.btn_delete
+    private val tv_car = containerView.tv_car
+    private val tv_description = containerView.tv_description
+    private val btn_delete = containerView.btn_delete
+    private val iv_image = containerView.iv_image
 
     fun bind(car: Car) {
         tv_description.text = car.description
         tv_car.text = car.car
+        containerView.setBackgroundResource(car.image)
         btn_delete.setOnClickListener {
             clickLambda(car)
         }
