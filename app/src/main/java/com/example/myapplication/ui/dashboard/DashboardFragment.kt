@@ -15,12 +15,12 @@ class DashboardFragment : Fragment() {
 
     private val carList: ArrayList<Car> = CarRepository.getDataSource()
 
-    private var adapter: CarAdapter? = null
+    private lateinit var adapter: CarAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
 
@@ -32,11 +32,9 @@ class DashboardFragment : Fragment() {
         adapter = CarAdapter(CarRepository.getDataSource()) { Car ->
             deleteItem(Car)
         }
-
         btn_update.setOnClickListener {
-            context?.let { it1 -> DialogWindow.newInstance().dialog(carList, it1, adapter!!) }
+            context?.let { it1 -> DialogWindow.newInstance().dialog(carList, it1, adapter) }
         }
-
         rv_car?.adapter = adapter
         setRecyclerViewItemTouchListener()
 
@@ -49,11 +47,11 @@ class DashboardFragment : Fragment() {
 
     private fun setRecyclerViewItemTouchListener() {
         val itemTouchCallback = object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                viewHolder1: RecyclerView.ViewHolder
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    viewHolder1: RecyclerView.ViewHolder
             ): Boolean {
                 return false
             }
@@ -68,4 +66,9 @@ class DashboardFragment : Fragment() {
         rv_car.addItemDecoration(itemTouchHelper)
         itemTouchHelper.attachToRecyclerView(rv_car)
     }
+
+    companion object {
+        fun newInstance(): DashboardFragment = DashboardFragment()
+    }
+
 }

@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.card_view.view.*
 import kotlinx.android.synthetic.main.template.view.tv_description
 
 class MusicViewHolder(
-    override val containerView: View,
-    val context: Context?
+        override val containerView: View,
+        val context: Context?
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     private val tv_author = containerView.tv_author
@@ -36,9 +36,9 @@ class MusicViewHolder(
     companion object {
 
         fun create(parent: ViewGroup, context: Context?) =
-            MusicViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false),
-                context = context
-            )
+                MusicViewHolder(
+                        LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false),
+                        context = context
+                )
     }
 }

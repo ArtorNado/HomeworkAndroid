@@ -35,4 +35,5 @@ class DialogWindow {
     companion object {
         fun newInstance(): DialogWindow = DialogWindow()
     }
+
 }

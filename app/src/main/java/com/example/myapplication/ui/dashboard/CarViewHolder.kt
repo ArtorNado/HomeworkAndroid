@@ -10,8 +10,8 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.template.view.*
 
 class CarViewHolder(
-    override val containerView: View,
-    private val clickLambda: (Car) -> Unit
+        override val containerView: View,
+        private val clickLambda: (Car) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     private val tv_car = containerView.tv_car
@@ -36,9 +36,9 @@ class CarViewHolder(
     companion object {
 
         fun create(parent: ViewGroup, clickLambda: (Car) -> Unit) =
-            CarViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.template, parent, false),
-                clickLambda
-            )
+                CarViewHolder(
+                        LayoutInflater.from(parent.context).inflate(R.layout.template, parent, false),
+                        clickLambda
+                )
     }
 }

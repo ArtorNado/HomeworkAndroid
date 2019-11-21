@@ -8,7 +8,7 @@ object Diff : DiffUtil.ItemCallback<Car>() {
     override fun areItemsTheSame(oldItem: Car, newItem: Car): Boolean = oldItem.car == newItem.car
 
     override fun areContentsTheSame(oldItem: Car, newItem: Car): Boolean =
-        oldItem.description == newItem.description
+            oldItem.description == newItem.description
 
     override fun getChangePayload(oldItem: Car, newItem: Car): Any? {
         val diffBundle = Bundle()
