@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.track_fragment.*
 class TrackFragment : Fragment(), OnFragmentListener {
 
     private lateinit var mListener: OnFragmentListener
+    private lateinit var model: SharedViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -32,8 +33,8 @@ class TrackFragment : Fragment(), OnFragmentListener {
         val act: MainActivity = activity as MainActivity
         lateinit var musicData: MusicData
         activity?.let {
-            val model = ViewModelProviders.of(it).get(SharedViewModel::class.java)
-            model.getSelected().observe(viewLifecycleOwner, Observer {
+            model = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            model.destinationFrom.observe(viewLifecycleOwner, Observer {
                 musicData = it
                 it?.let {
                     tv_album.text = it.album

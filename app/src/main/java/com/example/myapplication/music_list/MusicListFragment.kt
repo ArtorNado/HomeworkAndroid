@@ -27,15 +27,35 @@ class MusicListFragment : Fragment(), OnFragmentListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val list = MusicRepository.getMusicList()
-        adapter = MusicAdapter(list) { MusicData ->
+        val author = arguments?.getString("author") ?: "NULL"
+        var newList: ArrayList<MusicData> = ArrayList()
+        if (!author.equals("all")) {
+            list.forEach {
+                if (it.author.equals(author))
+                    newList.add(it)
+            }
+        } else newList = list
+
+        adapter = MusicAdapter(newList) { MusicData ->
             mListener.OnFragmentListener("start", MusicData)
         }
+
         rv_music_list.adapter = adapter
     }
 
 
     companion object {
-        fun newInstance(): MusicListFragment = MusicListFragment()
+
+        private const val ARG_AUTHOR_NAME = "author"
+
+
+        fun newInstance(
+                author: String = "NULL"
+        ): MusicListFragment = MusicListFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_AUTHOR_NAME, author)
+            }
+        }
     }
 
     override fun onFragmentListener(comand: String) {
