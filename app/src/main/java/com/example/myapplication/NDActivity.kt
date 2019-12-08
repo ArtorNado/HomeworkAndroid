@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.ui.gallery.GalleryFragment
@@ -22,12 +21,9 @@ class NDActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nd)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         val actionBar = supportActionBar
         actionBar?.title = "Hello Toolbar"
-
-
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
             this,
             drawer_layout,
@@ -63,8 +59,7 @@ class NDActivity : AppCompatActivity() {
     }
 
     private fun goHomeFragment() {
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().apply {
                 replace(R.id.nav_host_fragment, HomeFragment.newInstance(), "tag")
                 addToBackStack(HomeFragment::class.java.name)
                 commit()
@@ -73,8 +68,7 @@ class NDActivity : AppCompatActivity() {
     }
 
     private fun goSlideshowFragment() {
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().apply {
                 replace(R.id.nav_host_fragment, SlideshowFragment.newInstance(), "tag")
                 addToBackStack(SlideshowFragment::class.java.name)
                 commit()
@@ -83,8 +77,7 @@ class NDActivity : AppCompatActivity() {
     }
 
     private fun goDataEntryFragment() {
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().apply {
                 replace(R.id.nav_host_fragment, GoDataEntryFragment.newInstance(), "tag")
                 addToBackStack(GoDataEntryFragment::class.java.name)
                 commit()
@@ -93,8 +86,7 @@ class NDActivity : AppCompatActivity() {
     }
 
     private fun goGalleryFragment() {
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
+        supportFragmentManager.beginTransaction().apply {
                 replace(R.id.nav_host_fragment, GalleryFragment.newInstance(), "tag")
                 addToBackStack(GalleryFragment::class.java.name)
                 commit()

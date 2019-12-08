@@ -29,9 +29,9 @@ class UserProfileFragment : Fragment() {
 
     companion object {
 
-        private const val FIRST_NAME = "firstName"
-        private const val SECOND_NAME = "secondName"
-        private const val AGE = "age"
+        private const val ARG_FIRST_NAME = "firstName"
+        private const val ARG_SECOND_NAME = "secondName"
+        private const val ARG_AGE = "age"
 
         fun newInstance(
             firstName: String = "NULL",
