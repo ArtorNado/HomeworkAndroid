@@ -4,5 +4,5 @@ import com.example.myapplication.music_list.MusicData
 
 interface OnFragmentListener {
     fun onFragmentListener(comand: String)
-    fun OnFragmentListener(comand: String, musicData: MusicData)
+    fun onFragmentListener(comand: String, musicData: MusicData)
 }

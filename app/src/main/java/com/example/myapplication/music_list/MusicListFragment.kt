@@ -26,44 +26,24 @@ class MusicListFragment : Fragment(), OnFragmentListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        adapter = MusicAdapter(getMusicList()) { MusicData ->
+            mListener.onFragmentListener("start", MusicData)
+        }
+        rv_music_list.adapter = adapter
+    }
+
+
+    private fun getMusicList(): ArrayList<MusicData> {
         val list = MusicRepository.getMusicList()
         val author = arguments?.getString("author") ?: "NULL"
         var newList: ArrayList<MusicData> = ArrayList()
-        if (!author.equals("all")) {
+        if (author != "all") {
             list.forEach {
                 if (it.author.equals(author))
                     newList.add(it)
             }
         } else newList = list
-
-        adapter = MusicAdapter(newList) { MusicData ->
-            mListener.OnFragmentListener("start", MusicData)
-        }
-
-        rv_music_list.adapter = adapter
-    }
-
-
-    companion object {
-
-        private const val ARG_AUTHOR_NAME = "author"
-
-
-        fun newInstance(
-                author: String = "NULL"
-        ): MusicListFragment = MusicListFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_AUTHOR_NAME, author)
-            }
-        }
-    }
-
-    override fun onFragmentListener(comand: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun OnFragmentListener(comand: String, musicData: MusicData) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return newList
     }
 
     override fun onAttach(context: Context) {
@@ -72,6 +52,27 @@ class MusicListFragment : Fragment(), OnFragmentListener {
             mListener = context
         } else {
             throw RuntimeException(context.toString() + "must implement interface")
+        }
+    }
+
+    override fun onFragmentListener(comand: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onFragmentListener(comand: String, musicData: MusicData) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object {
+
+        private const val ARG_AUTHOR_NAME = "author"
+
+        fun newInstance(
+                author: String = "NULL"
+        ): MusicListFragment = MusicListFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_AUTHOR_NAME, author)
+            }
         }
     }
 }

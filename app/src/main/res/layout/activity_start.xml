@@ -14,5 +14,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_author_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Authors"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_all_music" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

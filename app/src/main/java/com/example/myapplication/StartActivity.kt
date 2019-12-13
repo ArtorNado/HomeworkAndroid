@@ -14,6 +14,13 @@ class StartActivity : AppCompatActivity() {
         btn_all_music.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("Fragment", "music_list")
+            intent.putExtra("author", "all")
+            startActivity(intent)
+        }
+
+        btn_author_list.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("Fragment", "author_list")
             startActivity(intent)
         }
     }

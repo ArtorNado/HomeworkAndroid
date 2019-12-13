@@ -31,16 +31,24 @@ class MusicService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            Constants.ACTION.NEXT_TRACK -> this.MusicBinder().getService().nextTrack()
-            Constants.ACTION.PREV_TRACK -> this.MusicBinder().getService().previousTrack()
-            Constants.ACTION.PAUSE -> this.MusicBinder().getService().pause()
+            Constants.ACTION.NEXT_TRACK -> {
+                this.MusicBinder().getService().nextTrack()
+                createNotification()
+            }
+            Constants.ACTION.PREV_TRACK -> {
+                this.MusicBinder().getService().previousTrack()
+                createNotification()
+            }
+            Constants.ACTION.PAUSE -> {
+                this.MusicBinder().getService().pause()
+                createNotification()
+            }
         }
-
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onCreate() {
-        createPIntent()
+        createNotification()
         super.onCreate()
     }
 
@@ -49,15 +57,18 @@ class MusicService : Service() {
     }
 
     fun startPlay(musicData: MusicData) {
-        idetnifyNumSong(musicData)
+        setNumbTrack(musicData)
         stopPlay()
         NotificationChanges.musicData = musicData
         mediaPlayer = MediaPlayer.create(applicationContext, musicData.music)
         mediaPlayer?.start()
+        TrackStatus.status = Constants.ACTION.START
+        createNotification()
     }
 
     fun stopPlay() {
         mediaPlayer?.stop()
+        TrackStatus.status = Constants.ACTION.STOP
     }
 
     fun nextTrack(): MusicData? {
@@ -70,34 +81,58 @@ class MusicService : Service() {
             musicData = list[musicNumber]
         }
         NotificationChanges.musicData = musicData
-        startPlay(musicData)
+        if (TrackStatus.status == Constants.ACTION.START) startPlay(musicData)
+        else {
+            stopPlay()
+            TrackStatus.status = Constants.ACTION.STOP
+            NotificationChanges.musicData = currentTrack()
+
+        }
         return musicData
     }
 
     fun previousTrack(): MusicData? {
-        val music: MusicData
+        val musicData: MusicData
         if (musicNumber == 0) {
             musicNumber = list.size - 1
-            music = list[musicNumber]
+            musicData = list[musicNumber]
         } else {
             musicNumber -= 1
-            music = list[musicNumber]
+            musicData = list[musicNumber]
         }
-        NotificationChanges.musicData = music
-        startPlay(music)
-        return music
+        NotificationChanges.musicData = musicData
+        if (TrackStatus.status == Constants.ACTION.START) startPlay(musicData)
+        else {
+            stopPlay()
+            TrackStatus.status = Constants.ACTION.STOP
+            NotificationChanges.musicData = currentTrack()
+        }
+        return musicData
     }
 
     fun pause() {
-        if (mediaPlayer?.isPlaying == true) mediaPlayer?.pause()
-        else mediaPlayer?.start()
+        when (TrackStatus.status) {
+            Constants.ACTION.START -> {
+                mediaPlayer?.pause()
+                TrackStatus.status = Constants.ACTION.PAUSE
+            }
+            Constants.ACTION.PAUSE -> {
+                mediaPlayer?.start()
+                TrackStatus.status = Constants.ACTION.START
+            }
+            Constants.ACTION.STOP -> {
+                startPlay(currentTrack())
+            }
+        }
     }
 
-    private fun idetnifyNumSong(musicData: MusicData) {
+    private fun setNumbTrack(musicData: MusicData) {
         this.musicNumber = list.indexOf(musicData)
     }
 
-    fun createPIntent() {
+    private fun currentTrack(): MusicData = list[musicNumber]
+
+    private fun createNotification() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val infoIntent = Intent(this, MainActivity::class.java).apply {
             action = Constants.ACTION.TRACK_INFO
@@ -114,7 +149,7 @@ class MusicService : Service() {
         val pauseIntent = Intent(MusicBinder().getService(), MusicService::class.java)
         pauseIntent.action = Constants.ACTION.PAUSE
         val pPauseIntent = PendingIntent.getService(this, 3, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        builder = Not.getNot(pInfoIntent, pPrevIntent, pPauseIntent, pNextIntent, this)
+        builder = com.example.myapplication.music_list.Notification.getNotification(pInfoIntent, pPrevIntent, pPauseIntent, pNextIntent, this)
         notificationManager.notify(1, builder.build())
     }
 

@@ -82,7 +82,7 @@ class PlayFragment : Fragment(), OnFragmentListener {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun OnFragmentListener(comand: String, musicData: MusicData) {
+    override fun onFragmentListener(comand: String, musicData: MusicData) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
