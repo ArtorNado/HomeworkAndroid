@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.fragment.OnFragmentListener
+import com.example.myapplication.repository.MusicRepository
 import kotlinx.android.synthetic.main.music_list_fragment.*
 
 

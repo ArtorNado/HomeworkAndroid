@@ -1,11 +1,13 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.myapplication.music_list
+package com.example.myapplication.notification
 
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import com.example.myapplication.R
+import com.example.myapplication.constants.Constants
+import com.example.myapplication.track_status.TrackStatus
 
 object Notification {
 

@@ -1,6 +1,7 @@
-package com.example.myapplication.fragment.authors
+package com.example.myapplication.repository
 
 import com.example.myapplication.R
+import com.example.myapplication.fragment.authors.AuthorData
 
 object AuthorRepository {
 

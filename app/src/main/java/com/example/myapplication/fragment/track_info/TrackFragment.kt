@@ -1,4 +1,4 @@
-package com.example.myapplication.fragment
+package com.example.myapplication.fragment.track_info
 
 import android.content.Context
 import android.os.Bundle
@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.myapplication.R
-import com.example.myapplication.music_list.Constants
+import com.example.myapplication.constants.Constants
+import com.example.myapplication.fragment.OnFragmentListener
 import com.example.myapplication.music_list.MusicData
-import com.example.myapplication.music_list.TrackStatus
 import com.example.myapplication.shared.SharedViewModel
+import com.example.myapplication.track_status.TrackStatus
 import kotlinx.android.synthetic.main.track_fragment.*
 
 
@@ -20,7 +21,6 @@ class TrackFragment : Fragment(), OnFragmentListener {
 
     private lateinit var mListener: OnFragmentListener
     private lateinit var model: SharedViewModel
-    private lateinit var pause: String
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -64,7 +64,6 @@ class TrackFragment : Fragment(), OnFragmentListener {
     }
 
     private fun btnPauseAction() {
-        pause = btn_pause.background.toString()
         mListener.onFragmentListener(Constants.ACTION.PAUSE)
         if (TrackStatus.status == Constants.ACTION.START) btn_pause.setBackgroundResource(R.drawable.ic_pause_circle_filled_24px)
         else btn_pause.setBackgroundResource(R.drawable.ic_play_circle_filled_24px)

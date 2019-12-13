@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.music_list.MusicListFragment
+import com.example.myapplication.repository.AuthorRepository
 import kotlinx.android.synthetic.main.author_fragment.*
 
 class AuthorFragment : Fragment(), ChangeFragmentListener {

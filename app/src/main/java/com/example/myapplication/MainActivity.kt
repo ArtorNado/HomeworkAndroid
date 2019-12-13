@@ -6,15 +6,18 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.myapplication.constants.Constants
 import com.example.myapplication.fragment.OnFragmentListener
-import com.example.myapplication.fragment.TrackFragment
 import com.example.myapplication.fragment.authors.AuthorFragment
 import com.example.myapplication.fragment.authors.ChangeFragmentListener
-import com.example.myapplication.music_list.*
+import com.example.myapplication.fragment.track_info.TrackFragment
+import com.example.myapplication.music_list.MusicData
+import com.example.myapplication.music_list.MusicListFragment
+import com.example.myapplication.music_list.MusicService
+import com.example.myapplication.notification.NotificationChanges
 import com.example.myapplication.shared.SharedViewModel
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -64,20 +67,19 @@ class MainActivity : AppCompatActivity(), OnFragmentListener, ChangeFragmentList
     private fun addStartFragment() {
         val argument: Bundle = intent.extras
         val fragmentName = argument.getString("Fragment")
-        Log.d("FRAGMENT_NAME", fragmentName)
         when (fragmentName) {
-            "music_list" -> supportFragmentManager.beginTransaction().apply {
+            Constants.FILTER.MUSIC_LIST -> supportFragmentManager.beginTransaction().apply {
                 val author = argument.getString("author")
-                if (author.equals("all")) {
+                if (author == Constants.FILTER.ALL_AUTHORS) {
                     replace(R.id.host_fragment, MusicListFragment.newInstance(author))
                     commit()
                 }
             }
-            "track_info" -> supportFragmentManager.beginTransaction().apply {
+            Constants.FILTER.TRACK_INFO -> supportFragmentManager.beginTransaction().apply {
                 replace(R.id.host_fragment, TrackFragment.newInstance())
                 commit()
             }
-            "author_list" -> supportFragmentManager.beginTransaction().apply {
+            Constants.FILTER.AUTHOR_LIST -> supportFragmentManager.beginTransaction().apply {
                 replace(R.id.host_fragment, AuthorFragment.newInstance())
                 commit()
             }

@@ -1,6 +1,7 @@
-package com.example.myapplication.music_list
+package com.example.myapplication.repository
 
 import com.example.myapplication.R
+import com.example.myapplication.music_list.MusicData
 
 object MusicRepository {
 

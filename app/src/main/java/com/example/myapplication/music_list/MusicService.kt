@@ -11,6 +11,10 @@ import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
 import com.example.myapplication.MainActivity
+import com.example.myapplication.constants.Constants
+import com.example.myapplication.notification.NotificationChanges
+import com.example.myapplication.repository.MusicRepository
+import com.example.myapplication.track_status.TrackStatus
 
 
 @Suppress("DEPRECATION")
@@ -135,8 +139,8 @@ class MusicService : Service() {
     private fun createNotification() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val infoIntent = Intent(this, MainActivity::class.java).apply {
-            action = Constants.ACTION.TRACK_INFO
-            putExtra("Fragment", "track_info")
+            action = Constants.FILTER.TRACK_INFO
+            putExtra("Fragment", Constants.FILTER.TRACK_INFO)
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pInfoIntent = PendingIntent.getActivity(this, 0, infoIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -149,7 +153,7 @@ class MusicService : Service() {
         val pauseIntent = Intent(MusicBinder().getService(), MusicService::class.java)
         pauseIntent.action = Constants.ACTION.PAUSE
         val pPauseIntent = PendingIntent.getService(this, 3, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        builder = com.example.myapplication.music_list.Notification.getNotification(pInfoIntent, pPrevIntent, pPauseIntent, pNextIntent, this)
+        builder = com.example.myapplication.notification.Notification.getNotification(pInfoIntent, pPrevIntent, pPauseIntent, pNextIntent, this)
         notificationManager.notify(1, builder.build())
     }
 
