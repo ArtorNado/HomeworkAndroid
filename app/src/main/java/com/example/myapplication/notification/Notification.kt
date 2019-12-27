@@ -5,6 +5,7 @@ package com.example.myapplication.notification
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Build
 import com.example.myapplication.R
 import com.example.myapplication.constants.Constants
 import com.example.myapplication.track_status.TrackStatus
@@ -14,7 +15,9 @@ object Notification {
     lateinit var builder: Notification.Builder
 
     fun getNotification(pInfoIntent: PendingIntent, pPrevIntent: PendingIntent, pPauseIntent: PendingIntent, pNextIntent: PendingIntent, context: Context): Notification.Builder {
-        builder = Notification.Builder(context).apply {
+        builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) Notification.Builder(context, Constants.NOTIFICATION.ARG_NOTIFICATION_ID)
+        else Notification.Builder(context)
+        builder.apply {
             setVisibility(Notification.VISIBILITY_PUBLIC)
             setSmallIcon(R.drawable.korz)
             setContentTitle(NotificationChanges.musicData.title)
@@ -26,7 +29,7 @@ object Notification {
                 else addAction(R.drawable.ic_play_circle_filled_24px, Constants.ACTION.START, pPauseIntent)
                 addAction(R.drawable.ic_skip_next_24px, Constants.ACTION.NEXT_TRACK, pNextIntent)
             }
-        }
+            }
         return builder
     }
 }

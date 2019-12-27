@@ -61,13 +61,9 @@ class MainActivity : AppCompatActivity(), OnFragmentListener, ChangeFragmentList
         }
     }
 
-    //////////////////////////////////////////////////////
-    /////////////////////CONSTANTS////////////////////////
-    //////////////////////////////////////////////////////
     private fun addStartFragment() {
         val argument: Bundle = intent.extras
-        val fragmentName = argument.getString("Fragment")
-        when (fragmentName) {
+        when (argument.getString("Fragment")) {
             Constants.FILTER.MUSIC_LIST -> supportFragmentManager.beginTransaction().apply {
                 val author = argument.getString("author")
                 if (author == Constants.FILTER.ALL_AUTHORS) {

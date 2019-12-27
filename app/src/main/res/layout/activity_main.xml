@@ -17,7 +17,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/support_panel"
-        android:name="com.example.myapplication.fragment.PlayFragment"
+        android:name="com.example.myapplication.fragment.play.PlayFragment"
         android:layout_width="0dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"

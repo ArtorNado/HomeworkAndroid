@@ -19,4 +19,10 @@ class Constants {
             const val TRACK_INFO = "track_info"
         }
     }
+
+    interface NOTIFICATION {
+        companion object {
+            const val ARG_NOTIFICATION_ID = "1"
+        }
+    }
 }
