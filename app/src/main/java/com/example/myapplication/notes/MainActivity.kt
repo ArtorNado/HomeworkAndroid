@@ -1,57 +1,61 @@
 package com.example.myapplication.notes
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myapplication.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.myapplication.notes.dataBase.AppDatabase
+import com.example.myapplication.notes.info.NotesInfo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnFragmentListener, CoroutineScope by MainScope() {
 
-    private var mAdapter: NotesAdapter? = null
-    private lateinit var mLayoutManager: RecyclerView.LayoutManager
-    private val notesList: ArrayList<NotesData> = NotesList.getNotesList()
+    private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mAdapter = NotesAdapter(NotesList.getNotesList()) { NotesData ->
-            Log.e("TOUCH", "TOUCH")
-        }
-        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv_notes_list.layoutManager = mLayoutManager
-        setRecyclerViewItemTouchListener()
-        rv_notes_list.adapter = mAdapter
+        db = AppDatabase(this)
+        setMainFragment()
     }
 
-    private fun deleteItem(notes: NotesData) {
-        notesList.remove(notes)
-        mAdapter?.updateList(notesList)
-    }
-
-    private fun setRecyclerViewItemTouchListener() {
-        val itemTouchCallback = object :
-                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    viewHolder1: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                val position = viewHolder.adapterPosition
-                notesList.removeAt(position)
-                mAdapter?.updateList(notesList)
+    private fun setMainFragment() {
+        supportFragmentManager.also {
+            it.beginTransaction().apply {
+                replace(R.id.container, MainFragment.newInstance())
+                addToBackStack(MainFragment::class.java.name)
+                commit()
             }
         }
-        val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
-        rv_notes_list.addItemDecoration(itemTouchHelper)
-        itemTouchHelper.attachToRecyclerView(rv_notes_list)
     }
+
+    private fun setNotesInfoFragment(action: String, id: Int, title: String, description: String) {
+        supportFragmentManager.also {
+            it.beginTransaction().apply {
+                replace(R.id.container, NotesInfo.newInstance(action, id, title, description))
+                commit()
+            }
+        }
+    }
+
+    override fun changeFragment(comand: String) {
+        when (comand) {
+            "add" -> {
+                setNotesInfoFragment("add", 0, "", "")
+            }
+            "end_add" ->
+                supportFragmentManager.also {
+                    it.beginTransaction().apply {
+                        replace(R.id.container, MainFragment.newInstance())
+                        commit()
+                    }
+                }
+        }
+    }
+
+    override fun changeNotes(action: String, id: Int, title: String, description: String) {
+        setNotesInfoFragment(action, id, title, description)
+    }
+
 
 }

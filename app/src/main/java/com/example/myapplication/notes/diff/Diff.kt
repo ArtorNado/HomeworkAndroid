@@ -2,16 +2,16 @@ package com.example.myapplication.notes.diff
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
-import com.example.myapplication.notes.NotesData
+import com.example.myapplication.notes.dataBase.entity.Notes
 
-object Diff : DiffUtil.ItemCallback<NotesData>() {
+object Diff : DiffUtil.ItemCallback<Notes>() {
 
-    override fun areItemsTheSame(oldItem: NotesData, newItem: NotesData): Boolean = oldItem.title == newItem.title
+    override fun areItemsTheSame(oldItem: Notes, newItem: Notes): Boolean = oldItem.title == newItem.title
 
-    override fun areContentsTheSame(oldItem: NotesData, newItem: NotesData): Boolean =
+    override fun areContentsTheSame(oldItem: Notes, newItem: Notes): Boolean =
             oldItem.description == newItem.description
 
-    override fun getChangePayload(oldItem: NotesData, newItem: NotesData): Any? {
+    override fun getChangePayload(oldItem: Notes, newItem: Notes): Any? {
         val diffBundle = Bundle()
         if (oldItem.title != newItem.title) {
             diffBundle.putString("title", newItem.title)

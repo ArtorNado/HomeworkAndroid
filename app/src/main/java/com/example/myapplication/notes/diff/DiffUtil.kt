@@ -1,9 +1,9 @@
 package com.example.myapplication.notes.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.myapplication.notes.NotesData
+import com.example.myapplication.notes.dataBase.entity.Notes
 
-class DiffUtil(private val oldList: List<NotesData>, private val newList: List<NotesData>) :
+class DiffUtil(private val oldList: List<Notes>, private val newList: List<Notes>) :
         DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
