@@ -1,4 +1,4 @@
-package com.example.myapplication.notes
+package com.example.myapplication.notes.mainFragment
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myapplication.R
+import com.example.myapplication.notes.MainActivity
+import com.example.myapplication.notes.OnFragmentListener
+import com.example.myapplication.notes.constants.Constants
 import com.example.myapplication.notes.dataBase.AppDatabase
 import com.example.myapplication.notes.dataBase.entity.Notes
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -38,7 +41,7 @@ class MainFragment : Fragment(), OnFragmentListener, CoroutineScope by MainScope
         db = AppDatabase(activity as MainActivity)
         launch {
             mAdapter = NotesAdapter(getListNotes()) {
-                mListener.changeNotes("update", it.id, it.title ?: "", it.description ?: "")
+                mListener.changeNotes(Constants.ACTION.UPDATE_ACTION, it)
             }
             mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             rv_notes_list.layoutManager = mLayoutManager
@@ -59,7 +62,7 @@ class MainFragment : Fragment(), OnFragmentListener, CoroutineScope by MainScope
 
     private fun initListeners() {
         btn_add.setOnClickListener {
-            mListener.changeFragment("add")
+            mListener.changeFragment(Constants.ACTION.ADD_ACTION)
         }
         btn_delete_all.setOnClickListener {
             launch {
@@ -84,7 +87,6 @@ class MainFragment : Fragment(), OnFragmentListener, CoroutineScope by MainScope
                 launch {
                     val position = viewHolder.adapterPosition
                     deleteNotes(getListNotes()[position])
-                    mAdapter?.updateList(getListNotes())
                 }
             }
         }
@@ -94,11 +96,17 @@ class MainFragment : Fragment(), OnFragmentListener, CoroutineScope by MainScope
     }
 
     private fun deleteNotes(notes: Notes) {
-        launch { db.notesDao().deleteNotes(notes) }
+        launch {
+            db.notesDao().deleteNotes(notes)
+            mAdapter?.updateList(getListNotes())
+        }
     }
 
     private fun deleteAllNotes() {
-        launch { db.notesDao().deleteAllNotes() }
+        launch {
+            db.notesDao().deleteAllNotes()
+            mAdapter?.updateList(getListNotes())
+        }
     }
 
     private suspend fun getListNotes(): List<Notes> = db.notesDao().getNotes()
@@ -107,7 +115,7 @@ class MainFragment : Fragment(), OnFragmentListener, CoroutineScope by MainScope
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun changeNotes(action: String, id: Int, title: String, description: String) {
+    override fun changeNotes(action: String, note: Notes) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

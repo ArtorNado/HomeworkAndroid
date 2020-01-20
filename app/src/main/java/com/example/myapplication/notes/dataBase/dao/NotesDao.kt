@@ -21,6 +21,6 @@ interface NotesDao {
     @Query("DELETE FROM notes")
     suspend fun deleteAllNotes()
 
-    @Query("UPDATE notes SET title = :newTitle, description = :newDescription WHERE id = :id")
-    suspend fun updateNote(id: Int, newTitle: String, newDescription: String)
+    @Query("UPDATE notes SET title = :newTitle, description = :newDescription, latitude = :newLatitude, longitude = :newLongitude WHERE id = :id")
+    suspend fun updateNote(id: Int, newTitle: String, newDescription: String, newLatitude: String, newLongitude: String)
 }

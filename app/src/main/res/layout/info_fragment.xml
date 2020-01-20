@@ -24,20 +24,44 @@
         android:id="@+id/et_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_title"
         tools:text="Description" />
 
-    <Button
+    <TextView
+        android:id="@+id/tv_latitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_description" />
+
+    <TextView
+        android:id="@+id/tv_longitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_latitude" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_description" />
+        app:layout_constraintTop_toBottomOf="@id/tv_longitude" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

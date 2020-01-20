@@ -1,4 +1,4 @@
-package com.example.myapplication.notes
+package com.example.myapplication.notes.mainFragment
 
 import android.os.Bundle
 import android.view.ViewGroup

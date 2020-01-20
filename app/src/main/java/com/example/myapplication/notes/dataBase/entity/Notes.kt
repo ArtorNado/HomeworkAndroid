@@ -11,5 +11,9 @@ data class Notes(
         @ColumnInfo(name = "title")
         var title: String?,
         @ColumnInfo(name = "description")
-        var description: String?
+        var description: String?,
+        @ColumnInfo(name = "latitude")
+        var latitude: String?,
+        @ColumnInfo(name = "longitude")
+        var longitude: String?
 )
