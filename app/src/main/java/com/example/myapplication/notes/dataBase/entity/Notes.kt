@@ -15,5 +15,7 @@ data class Notes(
         @ColumnInfo(name = "latitude")
         var latitude: String?,
         @ColumnInfo(name = "longitude")
-        var longitude: String?
+        var longitude: String?,
+        @ColumnInfo(name = "time")
+        var time: Long?
 )

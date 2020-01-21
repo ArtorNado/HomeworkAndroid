@@ -1,7 +1,9 @@
 package com.example.myapplication.notes.dataBase.dao
 
 import androidx.room.*
+import com.example.myapplication.notes.dataBase.converters.DataConverter
 import com.example.myapplication.notes.dataBase.entity.Notes
+import java.util.*
 
 @Dao
 interface NotesDao {
@@ -21,6 +23,6 @@ interface NotesDao {
     @Query("DELETE FROM notes")
     suspend fun deleteAllNotes()
 
-    @Query("UPDATE notes SET title = :newTitle, description = :newDescription, latitude = :newLatitude, longitude = :newLongitude WHERE id = :id")
-    suspend fun updateNote(id: Int, newTitle: String, newDescription: String, newLatitude: String, newLongitude: String)
+    @Query("UPDATE notes SET title = :newTitle, description = :newDescription, latitude = :newLatitude, longitude = :newLongitude, time = :newTime WHERE id = :id")
+    suspend fun updateNote(id: Int, newTitle: String, newDescription: String, newLatitude: String, newLongitude: String, @TypeConverters(DataConverter::class) newTime: Date)
 }

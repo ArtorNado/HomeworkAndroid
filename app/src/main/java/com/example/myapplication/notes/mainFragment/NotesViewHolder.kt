@@ -22,6 +22,7 @@ class NotesViewHolder(
     private val tvDescription = containerView.tv_description
     private val tvLongitude = containerView.tv_longitude
     private val tvLatitude = containerView.tv_latitude
+    private val tvTime = containerView.tv_time
     private var cv = containerView.card_view
 
     fun bind(notes: Notes) {
@@ -30,6 +31,7 @@ class NotesViewHolder(
         tvDescription.text = notes.description
         tvLatitude.text = notes.latitude
         tvLongitude.text = notes.longitude
+        tvTime.text = notes.time.toString()
         itemView.setOnClickListener {
             clickLambda(notes)
         }

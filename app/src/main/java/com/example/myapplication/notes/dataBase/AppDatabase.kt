@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.myapplication.notes.dataBase.converters.DataConverter
 import com.example.myapplication.notes.dataBase.dao.NotesDao
 import com.example.myapplication.notes.dataBase.entity.Notes
 
-@Database(entities = [Notes::class], version = 2)
+@Database(entities = [Notes::class], version = 3)
+@TypeConverters(DataConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun notesDao(): NotesDao

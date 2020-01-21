@@ -23,21 +23,19 @@ class MainActivity : AppCompatActivity(), OnFragmentListener, CoroutineScope by 
     }
 
     private fun setMainFragment() {
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
-                replace(R.id.container, MainFragment.newInstance())
-                addToBackStack(MainFragment::class.java.name)
-                commit()
-            }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container, MainFragment.newInstance())
+            addToBackStack(MainFragment::class.java.name)
+            commit()
         }
+
     }
 
     private fun setNotesInfoFragment(action: String, id: Int, title: String, description: String) {
-        supportFragmentManager.also {
-            it.beginTransaction().apply {
-                replace(R.id.container, NotesInfo.newInstance(action, id, title, description))
-                commit()
-            }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.container, NotesInfo.newInstance(action, id, title, description))
+            commit()
+
         }
     }
 

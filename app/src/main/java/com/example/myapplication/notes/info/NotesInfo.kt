@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.info_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class NotesInfo : Fragment(), OnFragmentListener, CoroutineScope by MainScope() {
 
@@ -41,7 +42,7 @@ class NotesInfo : Fragment(), OnFragmentListener, CoroutineScope by MainScope() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        db = AppDatabase(activity as MainActivity)
+        context?.let { db = AppDatabase(it) }
         checkPermissions()
         setTextOnET()
         initListeners()
@@ -66,11 +67,11 @@ class NotesInfo : Fragment(), OnFragmentListener, CoroutineScope by MainScope() 
     private fun initListeners() {
         btn_add.setOnClickListener {
             if (arguments?.getString(Constants.DATA.ARG_ACTION).toString() == Constants.ACTION.ADD_ACTION) {
-                addNotes(et_title.text.toString(), et_description.text.toString(), tv_latitude.text.toString(), tv_longitude.text.toString())
+                addNotes(et_title.text.toString(), et_description.text.toString(), tv_latitude.text.toString(), tv_longitude.text.toString(), Calendar.getInstance().time)
                 mListener.changeFragment(Constants.ACTION.END_ADD_ACTION)
             } else {
                 updateNotes(arguments?.getInt(Constants.DATA.ARG_ID) ?: 0, et_title.text.toString(),
-                        et_description.text.toString(), tv_latitude.text.toString(), tv_longitude.text.toString())
+                        et_description.text.toString(), tv_latitude.text.toString(), tv_longitude.text.toString(), Calendar.getInstance().time)
                 mListener.changeFragment(Constants.ACTION.END_ADD_ACTION)
             }
         }
@@ -100,12 +101,12 @@ class NotesInfo : Fragment(), OnFragmentListener, CoroutineScope by MainScope() 
         }
     }
 
-    private fun updateNotes(id: Int, title: String, description: String, latitude: String, longitude: String) {
-        launch { db.notesDao().updateNote(id, title, description, latitude, longitude) }
+    private fun updateNotes(id: Int, title: String, description: String, latitude: String, longitude: String, date: Date) {
+        launch { db.notesDao().updateNote(id, title, description, latitude, longitude, date) }
     }
 
-    private fun addNotes(title: String, description: String, latitude: String, longitude: String) {
-        launch { db.notesDao().save(Notes(0, title, description, latitude, longitude)) }
+    private fun addNotes(title: String, description: String, latitude: String, longitude: String, date: Date) {
+        launch { db.notesDao().save(Notes(0, title, description, latitude, longitude, date.time)) }
     }
 
     override fun changeFragment(comand: String) {
